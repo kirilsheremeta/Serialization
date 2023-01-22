@@ -225,8 +225,11 @@ class Record:
     def __str__(self) -> str:
         return f'Name: {self.name} Phone: {", ".join([str(p) for p in self.phones])} {"Birthday: " + str(self.birthday) if self.birthday else ""}'
 
-    def add_birthday(self, day, month, year):
-        self.birthday = Birthday.date_standard(int(year), int(month), int(day))
+    def add_birthday(self, birthday):
+        if isinstance(birthday, Birthday):
+            self.birthday = birthday
+        else:
+            self.birthday = Birthday(birthday)
 
     def add_phone(self, new_number):
         if new_number not in self.phones:
